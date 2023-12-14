@@ -1,0 +1,22 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.8"
+services:
+  api:
+    build:
+      context: "C:\\Users\\furqa\\RabbitMQ"
+      dockerfile: "SearchEngine/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/SearchEngine.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "search-engine:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\furqa\\.nuget\\packages:/root/.nuget/packages"
+    - "C:\\Users\\furqa\\RabbitMQ\\SearchEngine:/app:rw"
+    - "C:\\Users\\furqa\\RabbitMQ:/src:rw"
+    working_dir: "/app"

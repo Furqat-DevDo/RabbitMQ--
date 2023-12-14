@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  animal-home:
+    image: animal-home
+    build:
+      context: .
+      dockerfile: AnimalHome/Dockerfile
+    ports:
+      - "5455:80"
+    depends_on:
+          - postgres
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: AnimalDb
+      POSTGRES_USER: furqat
+      POSTGRES_PASSWORD: furqat1234@
+    ports:
+      - "5432:5432"  
+  search-engine:
+    image: search-engine
+    build:
+      context: .
+      dockerfile: SearchEngine/Dockerfile
+    ports:
+      - "5456:80"
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
