@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalHome", "AnimalHome\An
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchEngine", "SearchEngine\SearchEngine.csproj", "{9E8F466F-FF82-4CC8-983C-50ED09056711}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Events", "Events\Events.csproj", "{F8F3B6F3-46C4-4411-BB98-E75FC5F4DB50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{9E8F466F-FF82-4CC8-983C-50ED09056711}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E8F466F-FF82-4CC8-983C-50ED09056711}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E8F466F-FF82-4CC8-983C-50ED09056711}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8F3B6F3-46C4-4411-BB98-E75FC5F4DB50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8F3B6F3-46C4-4411-BB98-E75FC5F4DB50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8F3B6F3-46C4-4411-BB98-E75FC5F4DB50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8F3B6F3-46C4-4411-BB98-E75FC5F4DB50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AnimalHome.Migrations
 {
-    [DbContext(typeof(AnimalsDbContext))]
+    [DbContext(typeof(AnimalDbContext))]
     partial class AnimalsDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<AnimalsDbContext>(option =>
+builder.Services.AddDbContext<AnimalDbContext>(option =>
 {
     option.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
 });
@@ -14,7 +14,7 @@ builder.Services.AddDbContext<AnimalsDbContext>(option =>
 builder.Services.AddMassTransit(x =>
 {
     // Add outbox
-    x.AddEntityFrameworkOutbox<AnimalsDbContext>(o =>
+    x.AddEntityFrameworkOutbox<AnimalDbContext>(o =>
     {
         o.QueryDelay = TimeSpan.FromSeconds(10);
 

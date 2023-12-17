@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnimalHome.Data;
 
-public class AnimalsDbContext : DbContext
+public class AnimalDbContext : DbContext
 {
-    public AnimalsDbContext(DbContextOptions options) : base(options) { }
+    public AnimalDbContext(DbContextOptions options) : base(options) { }
 
     public DbSet<Animal> Animals { get; set; }
 
