@@ -1,4 +1,5 @@
 using AnimalHome.Data;
+using AnimalHome.Options;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,12 @@ builder.Services.AddDbContext<AnimalDbContext>(option =>
 {
     option.UseNpgsql(builder.Configuration.GetConnectionString("Database"));
 });
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+builder.Configuration
+    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
 
 builder.Services.AddMassTransit(x =>
 {
@@ -24,15 +31,16 @@ builder.Services.AddMassTransit(x =>
     });
 
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("animal", false));
+    
+    var rabbitMqSettings = builder.Configuration.GetSection("RabbitMq").Get<RabbitMqSettings>();
 
     // Setup RabbitMQ Endpoint
     x.UsingRabbitMq((context, cfg) =>
     {
-
-        cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host =>
+        cfg.Host(rabbitMqSettings.HostName, "/", host =>
         {
-            host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
-            host.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
+            host.Username(rabbitMqSettings.UserName);
+            host.Password(rabbitMqSettings.Password);
         });
         cfg.ConfigureEndpoints(context);
     });

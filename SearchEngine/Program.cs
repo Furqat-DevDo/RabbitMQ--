@@ -4,11 +4,13 @@ using Polly;
 using Polly.Extensions.Http;
 using SearchEngine.Consumers;
 using SearchEngine.Data;
+using SearchEngine.Options;
 using SearchEngine.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
 builder.Services.AddRouting(options =>
 {
     options.LowercaseUrls = true;
@@ -16,8 +18,10 @@ builder.Services.AddRouting(options =>
 
 // Mapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 // Http service
-builder.Services.AddHttpClient<AnimalServiceHttpClient>().AddPolicyHandler(GetPolicy());
+builder.Services.AddHttpClient<AnimalServiceHttpClient>()
+    .AddPolicyHandler(GetPolicy());
 // RabbitMQ
 builder.Services.AddMassTransit(x =>
 {
@@ -25,14 +29,16 @@ builder.Services.AddMassTransit(x =>
 
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
 
+    var rabbitMqSettings = builder.Configuration.GetSection("RabbitMq").Get<RabbitMqSettings>();
+
+    // Setup RabbitMQ Endpoint
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host(builder.Configuration["RabbitMq:Host"], "/", host =>
+        cfg.Host(rabbitMqSettings.HostName, "/", host =>
         {
-            host.Username(builder.Configuration.GetValue("RabbitMq:Username", "guest"));
-            host.Password(builder.Configuration.GetValue("RabbitMq:Password", "guest"));
+            host.Username(rabbitMqSettings.UserName);
+            host.Password(rabbitMqSettings.Password);
         });
-
         cfg.ConfigureEndpoints(context);
     });
 });

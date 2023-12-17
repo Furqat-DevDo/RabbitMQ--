@@ -1,6 +1,8 @@
 version: '3.8'
 
 services:
+
+  # Animal Project
   animal-home:
     image: animal-home
     build:
@@ -9,15 +11,18 @@ services:
     ports:
       - "5455:80"
     depends_on:
-          - postgres
+      - postgres
+
   postgres:
     image: postgres
     environment:
       POSTGRES_DB: AnimalDb
       POSTGRES_USER: furqat
-      POSTGRES_PASSWORD: furqat1234@
+      POSTGRES_PASSWORD: furqat123@
     ports:
-      - "5432:5432"  
+      - "5433:5432" 
+
+  # Search Project
   search-engine:
     image: search-engine
     build:
@@ -27,7 +32,18 @@ services:
       - "5456:80"
     depends_on:
       - mongo
+      - rabbitmq
+
   mongo:
     image: mongo
     ports:
       - "27017:27017"
+
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - "5672:5672" 
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
