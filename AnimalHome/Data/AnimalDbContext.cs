@@ -55,5 +55,7 @@ public class AnimalDbContext : DbContext
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow,
         });
+        
+        Database.Migrate();
     }
 }

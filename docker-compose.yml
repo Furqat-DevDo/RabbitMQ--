@@ -12,7 +12,7 @@ services:
       - "5455:80"
     depends_on:
       - postgres
-
+      - rabbit
   postgres:
     image: postgres
     environment:
@@ -20,7 +20,7 @@ services:
       POSTGRES_USER: furqat
       POSTGRES_PASSWORD: furqat123@
     ports:
-      - "5433:5432" 
+      - "5432:5432" 
 
   # Search Project
   search-engine:
@@ -32,15 +32,15 @@ services:
       - "5456:80"
     depends_on:
       - mongo
-      - rabbitmq
+      - rabbit
 
   mongo:
     image: mongo
     ports:
       - "27017:27017"
 
-  rabbitmq:
-    image: rabbitmq
+  rabbit:
+    image: rabbitmq:3-management
     ports:
       - "5672:5672" 
       - "15672:15672"
