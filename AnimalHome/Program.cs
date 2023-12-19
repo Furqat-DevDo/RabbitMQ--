@@ -14,9 +14,19 @@ builder.Services.AddDbContext<AnimalDbContext>(option =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Configuration
-    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-    .AddEnvironmentVariables();
+
+if (builder.Environment.IsDevelopment())
+{
+    builder.Configuration
+        .AddJsonFile("appsettings.Development.json", optional: true, reloadOnChange: true)
+        .AddEnvironmentVariables();
+} 
+else if (builder.Environment.IsProduction())
+{
+    builder.Configuration
+        .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+        .AddEnvironmentVariables();
+}
 
 builder.Services.AddMassTransit(x =>
 {
